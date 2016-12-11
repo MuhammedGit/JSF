@@ -41,10 +41,7 @@ public class SeriesDbUtil {
 		return connection;
 	}
 
-
-	public List<Series> getSmallView() throws Exception {
-		
-		
+	public List<Series> loadSeries() throws Exception {
 		List <Series> series = new ArrayList<>();
 		Connection myConn = null;
 		Statement myStmt = null;
@@ -62,9 +59,6 @@ public class SeriesDbUtil {
 				String serie_title = myRs.getString("serie_title").toLowerCase();
 				String serie_rating = myRs.getString("serie_rating");
 				String imdbID = myRs.getString("imdbID");
-				
-				System.out.println(serie_title);
-				System.out.println(serie_rating);
 				Series ser= new Series(imdbID,serie_title,serie_genre,serie_plot,serie_poster, serie_rating);
 				series.add(ser);
 				
@@ -82,8 +76,6 @@ public class SeriesDbUtil {
 	public void addSerie(Series serie) throws SQLException{
 		Connection myConn=null;
 		PreparedStatement myStmt=null;
-		//ResultSet myRs=null;
-		serie.toString();
 		try {
 			myConn= getConnection();
 			String sql="insert into series (imdbID, serie_title, serie_genre, serie_plot, serie_rating) VALUES (?, ?, ?, ?, ?)";
@@ -103,7 +95,7 @@ public class SeriesDbUtil {
 			//myRs.close();
 		}
 	}
-	/*public Series getSerie(String se) throws Exception {
+	public Series getSerie(String se) throws Exception {
 		System.out.println(se);
 		Series ser = null;
 		String imdb_serie=se;
@@ -125,9 +117,7 @@ public class SeriesDbUtil {
 				System.out.println(imdb_plot);
 				ser= new Series(imdb_genre,imdb_plot);
 				//series.add(ser);
-				
 			}
-			
 			
 		}finally{
 			myConn.close();
@@ -137,6 +127,4 @@ public class SeriesDbUtil {
 		return ser; 
 			
 	}
-	*/
-
 }
