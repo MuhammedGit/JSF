@@ -17,7 +17,6 @@ public class SeriesController {
 	private SeriesDbUtil seriesDbUtil;
 	private Logger logger = Logger.getLogger(getClass().getName());
 	
-
 	public void setSeries(List<Series> series) {
 		this.series = series;
 	}
@@ -27,26 +26,15 @@ public class SeriesController {
 	public List<Series> getSeries(){
 		return series;
 	}
-//	public List<Series> getSeries(){
-//	if (series == null) {
-//		series = new ArrayList<Series>();
-//		series.add(new Series("Tennis"));
-//		series.add(new Series("Baseball Bat"));
-//		series.add(new Series("Hockey Stick"));
-//		System.out.println("Get_series");
-//    }
-//    return series;
-//}
 	public SeriesController() throws Exception{
 		
 		this.series = new ArrayList<>();
 		this.seriesDbUtil = SeriesDbUtil.getInstance();
 	}
-	
 	public void loadSeries(){
 		series.clear();
 		try {
-			series=seriesDbUtil.getSmallView();
+			series=seriesDbUtil.loadSeries();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,10 +65,9 @@ public class SeriesController {
 			e.printStackTrace();
 		}
 		logger.info("added serie: " + serie);
-		//return "myseries?faces-redirect=true";
+		return "myseries?faces-redirect=true";
 		return "";
 	}
-	/*
 	public void getSerie(String ser){
 		try {
 			serie=seriesDbUtil.getSerie(ser);
@@ -89,6 +76,4 @@ public class SeriesController {
 			e.printStackTrace();
 		}
 	}
-	*/
-
 }
